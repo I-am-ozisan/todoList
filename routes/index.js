@@ -7,7 +7,7 @@ router.get("/init", (req, res) => {
     //クッキー取得
     let arrayCookie = new Array();
     let cookieFlg = "0"
-    if(req.cookies.key !== "undefined"){
+    if(isUndefinedChecked(req.cookies.key)){
         arrayCookie = JSON.parse(req.cookies.key);
         cookieFlg = "1"
     }
@@ -40,4 +40,16 @@ router.post("/delete", (req, res) => {
     res.send();
 });
 
+/**
+ * undefined判定式
+ */
+function isUndefinedChecked(data){
+    if(data === 'undefined'){
+        return false;
+    }else if(data === undefined){
+        return false;
+    }else{
+        return true;
+    }
+}
 module.exports = router;

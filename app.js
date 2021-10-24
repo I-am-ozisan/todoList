@@ -1,6 +1,7 @@
 let express = require("express");
 let app = express();
 let cookieParser = require("cookie-parser");
+const port = process.env.PORT || 3000;
 //レンダーの指定
 app.set("view engine", "ejs");
 //静的ファイルの読み込み
@@ -12,5 +13,4 @@ app.use(express.urlencoded(true));
 app.use(express.json())
 //ルーティングの実施
 app.use("/", require("./routes/index.js"));
-
-app.listen(3000);;
+app.listen(port);;
