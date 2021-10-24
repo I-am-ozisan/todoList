@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <link rel="stylesheet" href="/public/third_party/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/first_party/css/index.css">
+
+
+</head>
+
+<body>
+    <div class="center">
+        <h1>todoリスト</h1>
+        <ul class="list-group">
+            <% if(cookieFlg) { %>
+                <% for (let i = 0 ; i < taskArray.length; i++) { %>
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                        <label><%= taskArray[i] %></label>
+                    </li>
+                <% } %>
+            <% } %>
+        </ul>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput">
+            <label for="floatingInput">Task</label>
+        </div>
+        <div>
+            <button class="btn btn-primary add-btn" type="submit">追加</button>
+            <button class="btn btn-primary delete-btn" type="submit">削除</button>
+        </div>
+    </div>
+
+</body>
+<script src="/public/first_party/js/index.js"></script>
+
+</html>
