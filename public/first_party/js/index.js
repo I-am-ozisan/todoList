@@ -1,13 +1,21 @@
 
 const addUrl = "/add";
 const deleteUrl = "/delete";
+const addErrorMessage = "追加したいタスクを入力してください";
+const deleteErrorMessage = "削除したいタスクを選択してください";
 
 /**
  * 追加ボタン押下時
  */
 $(".add-btn").on("click", () => {
+    invisibleErrorMessage();
     //追加タスク取得
     let addTask = $(".form-control").val();
+    //入力チェック
+    if(!addTask){
+        visibleErrorMessage(addErrorMessage);
+        return false;
+    }
     const checkBoxStr = '<input class="form-check-input me-1" type="checkbox" value="" aria-label="..."></input>';
 
     //要素追加
@@ -17,11 +25,23 @@ $(".add-btn").on("click", () => {
     reqAjax(createRequest() , addUrl);
 });
 
+
+/**
+ * 削除ボタン押下時
+ */
 $(".delete-btn").on("click",() =>{
+    invisibleErrorMessage();
+    let deleteFlg = 0;
     //要素削除
     $(":checkbox:checked").each((index, element) => {
         $(element).parent("li").remove();
+        deleteFlg = 1;
     });
+    //入力チェック
+    if(!deleteFlg){
+        visibleErrorMessage(deleteErrorMessage);
+        return false;
+    }
     //リクエスト送信
     reqAjax(createRequest(),deleteUrl);
 });
@@ -55,5 +75,24 @@ function reqAjax(reqData,url) {
         console.log(res);
     }).fail((XMLHttpRequest, textStatus, errorThrown) => {
         alert(textStatus+errorThrown);
+    })
+}
+
+/**
+ * エラーメッセージを表示
+ */
+function visibleErrorMessage(message){
+    $(".alert-warning").css({
+        "display":"inherit"
+    });
+    $(".alert-warning").text(message);
+}
+
+/**
+ * エラーメッセージを非表示
+ */
+function invisibleErrorMessage(){
+    $(".alert-warning").css({
+        "display":"none"
     })
 }
